@@ -3,6 +3,7 @@ package controller;
 import model.Product;
 import view.VendingMachineView;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class VendingMachineController {
@@ -48,7 +49,7 @@ public class VendingMachineController {
         allProducts.forEach( product -> view.printCurrentStock(
                 product.getId(),
                 product.getName(),
-                product.getPrice(),
+                BigDecimal.valueOf(product.getPrice()).divide(BigDecimal.valueOf(100)),
                 product.getStock()
         ));
     }

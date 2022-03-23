@@ -1,12 +1,15 @@
 package view;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class VendingMachineView {
     public void printMainMenu() {
         System.out.println("---Main Menu---");
     }
 
-    public void printCurrentStock(int id, String name, int price, int stock) {
-        System.out.printf("id: %d Name: %s Price: %d Stock: %d %n",id, name, price, stock);
+    public void printCurrentStock(int id, String name, BigDecimal price, int stock) {
+        System.out.printf("id: %d Name: %s Price: £%s Stock: %d %n",id, name, price.setScale(2, RoundingMode.UNNECESSARY), stock);
     }
 
     public void printIdToPurchaseMessage() {

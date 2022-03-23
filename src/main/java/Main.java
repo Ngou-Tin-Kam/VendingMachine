@@ -5,6 +5,8 @@ import model.Product;
 import view.PriceInputView;
 import view.VendingMachineView;
 
+import java.math.BigDecimal;
+
 
 public class Main {
 
@@ -26,7 +28,7 @@ public class Main {
 
         Product selectedProduct = vmController.askUserForProductInput();
         try{
-            boolean isEnoughMoney = moneyController.calculatePriceDifference(selectedProduct.getPrice());
+            boolean isEnoughMoney = moneyController.calculatePriceDifference(BigDecimal.valueOf(selectedProduct.getPrice()).divide(BigDecimal.valueOf(100)));
             if (isEnoughMoney){
                 vmController.removeItemFromStock(selectedProduct);
             }
@@ -35,7 +37,6 @@ public class Main {
             vmController.printExitChoice();
             moneyController.printInvalidChoiceToReturnMoney();
         }
-
     }
 
     private static Product getProductFromFile(){
@@ -43,5 +44,4 @@ public class Main {
         product.readProductFromFile();
         return product;
     }
-
 }

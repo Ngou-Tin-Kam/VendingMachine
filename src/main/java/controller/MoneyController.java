@@ -3,6 +3,8 @@ package controller;
 import model.Money;
 import view.PriceInputView;
 
+import java.math.BigDecimal;
+
 public class MoneyController {
     private Money model;
     private PriceInputView view;
@@ -37,11 +39,11 @@ public class MoneyController {
     }
 
     public void displayUserMoneyInput() {
-        int moneyInput = model.getInsertedMoney();
+        BigDecimal moneyInput = model.getInsertedMoney();
         view.printMoneyInput(moneyInput);
     }
 
-    public boolean calculatePriceDifference(int selectedProductPrice){
+    public boolean calculatePriceDifference(BigDecimal selectedProductPrice){
         model.setSelectedProductPrice(selectedProductPrice);
         boolean isEnoughMoney = model.calculateEnoughMoney();
         if (isEnoughMoney) {

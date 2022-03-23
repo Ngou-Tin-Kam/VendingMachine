@@ -1,24 +1,27 @@
 package view;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class PriceInputView {
     public void printPriceInput() {
-        System.out.println("---Insert your money---");
+        System.out.println("---Insert your money in pennies---");
     }
 
-    public void printMoneyInput(int amount) {
-        System.out.printf("You have entered this much: %d %n" ,amount);
+    public void printMoneyInput(BigDecimal amount) {
+        System.out.printf("You have entered this much: £%s %n" , amount.setScale(2, RoundingMode.UNNECESSARY));
     }
 
-    public void printChange(int change) {
-        System.out.printf("Item purchased and your change is: %d %n", change);
+    public void printChange(BigDecimal change) {
+        System.out.printf("Item purchased and your change is: £%s %n", change.setScale(2, RoundingMode.UNNECESSARY));
     }
 
-    public void printInsufficientFunds(int insufficientFunds, int insertedMoney) {
-        System.out.printf("You are missing %d amount %n", insufficientFunds);
+    public void printInsufficientFunds(BigDecimal insufficientFunds, BigDecimal insertedMoney) {
+        System.out.printf("You are missing £%s amount %n", insufficientFunds.setScale(2, RoundingMode.UNNECESSARY));
         printInvalidChoiceToReturnMoney(insertedMoney);
     }
 
-    public void printInvalidChoiceToReturnMoney(int insertedMoney) {
-        System.out.printf("You get %d back %n", insertedMoney);
+    public void printInvalidChoiceToReturnMoney(BigDecimal insertedMoney) {
+        System.out.printf("You get £%s back %n", insertedMoney.setScale(2, RoundingMode.UNNECESSARY));
     }
 }
