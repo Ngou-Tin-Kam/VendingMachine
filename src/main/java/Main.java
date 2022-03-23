@@ -32,7 +32,7 @@ public class Main {
             }
             vmController.showCurrentStock();
         } catch (NullPointerException e) {
-            vmController.printInvalidChoice();
+            vmController.printExitChoice();
             moneyController.printInvalidChoiceToReturnMoney();
         }
 

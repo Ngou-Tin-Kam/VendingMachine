@@ -3,9 +3,7 @@ package controller;
 import model.Product;
 import view.VendingMachineView;
 
-import javax.print.attribute.standard.JobKOctets;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class VendingMachineController {
     private Product model;
@@ -38,14 +36,21 @@ public class VendingMachineController {
 
     public void showCurrentStock() {
         ArrayList<Product> allProducts = getModel().getProducts();
-        for (int i = 0; i < allProducts.size(); i++) {
-            view.printCurrentStock(
-                    allProducts.get(i).getId(),
-                    allProducts.get(i).getName(),
-                    allProducts.get(i).getPrice(),
-                    allProducts.get(i).getStock()
-            );
-        }
+//        for (int i = 0; i < allProducts.size(); i++) {
+//            view.printCurrentStock(
+//                    allProducts.get(i).getId(),
+//                    allProducts.get(i).getName(),
+//                    allProducts.get(i).getPrice(),
+//                    allProducts.get(i).getStock()
+//            );
+//        }
+
+        allProducts.forEach( product -> view.printCurrentStock(
+                product.getId(),
+                product.getName(),
+                product.getPrice(),
+                product.getStock()
+        ));
     }
 
     public Product askUserForProductInput() {
@@ -65,8 +70,8 @@ public class VendingMachineController {
         model.updateTextFile();
     }
 
-    public void printInvalidChoice() {
-        view.printInvalidChoiceMessage();
+    public void printExitChoice() {
+        view.printExitChoiceMessage();
     }
 
 }

@@ -9,16 +9,16 @@ public class VendingMachineView {
         System.out.printf("id: %d Name: %s Price: %d Stock: %d %n",id, name, price, stock);
     }
 
-    public void printIdToPurchaseMessage(){
-        System.out.println("Enter the id of item you would like to purchase");
+    public void printIdToPurchaseMessage() {
+        System.out.println("Enter the ID of item you would like to purchase or enter any other number to exit and get your money back");
     }
 
-    public void printYouHaveSelectedMessage(String name){
+    public void printYouHaveSelectedMessage(String name) {
         System.out.printf("You have selected %s %n", name);
     }
 
     //Method to fail gracefully
-    public void printInvalidChoiceMessage(){
-        System.out.println("You have selected an invalid choice and the program will now exit");
+    public void printExitChoiceMessage() {
+        System.out.println("You have selected to exit the program");
     }
 }

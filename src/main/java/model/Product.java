@@ -93,7 +93,7 @@ public class Product {
         }
     }
 
-    public boolean productToPurchase(){
+    public boolean productToPurchase() {
         Scanner productToPurchaseSc = new Scanner(System.in);
         int userSelectedId = productToPurchaseSc.nextInt();
 
@@ -123,6 +123,5 @@ public class Product {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("Saved and Quitting");
     }
 }
