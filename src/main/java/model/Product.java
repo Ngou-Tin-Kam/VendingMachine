@@ -1,7 +1,6 @@
 package model;
 
 import java.io.*;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -45,7 +44,7 @@ public class Product {
         this.stock = stock;
     }
 
-    public ArrayList<Product> getProducts(){
+    public ArrayList<Product> getProducts() {
         return AllProducts;
     }
 

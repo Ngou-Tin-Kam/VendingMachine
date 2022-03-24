@@ -24,4 +24,8 @@ public class VendingMachineView {
     public void printExitChoiceMessage() {
         System.out.println("You have selected to exit the program");
     }
+
+    public void printOutOfStockChoiceMessage() {
+        System.out.println("You have selected an item that is currently out of stock");
+    }
 }

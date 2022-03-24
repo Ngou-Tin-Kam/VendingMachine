@@ -46,12 +46,17 @@ public class VendingMachineController {
 //            );
 //        }
 
-        allProducts.forEach( product -> view.printCurrentStock(
-                product.getId(),
-                product.getName(),
-                BigDecimal.valueOf(product.getPrice()).divide(BigDecimal.valueOf(100)),
-                product.getStock()
-        ));
+        allProducts.forEach(product -> {
+                    if (product.getStock() != 0) {
+                        view.printCurrentStock(
+                                product.getId(),
+                                product.getName(),
+                                BigDecimal.valueOf(product.getPrice()).divide(BigDecimal.valueOf(100)),
+                                product.getStock()
+                        );
+                    }
+                }
+        );
     }
 
     public Product askUserForProductInput() {
@@ -66,13 +71,23 @@ public class VendingMachineController {
     }
 
     public void removeItemFromStock(Product selectedProduct) {
-        int newStock = selectedProduct.getStock() - 1;
-        selectedProduct.setStock(newStock);
-        model.updateTextFile();
+        int currentStock = selectedProduct.getStock();
+        if (currentStock != 0) {
+            selectedProduct.setStock(currentStock - 1);
+            model.updateTextFile();
+        } else {
+            selectedProduct.setStock(currentStock);
+            printOutOfStockChoice();
+            model.updateTextFile();
+        }
     }
 
     public void printExitChoice() {
         view.printExitChoiceMessage();
+    }
+
+    public void printOutOfStockChoice() {
+        view.printOutOfStockChoiceMessage();
     }
 
 }

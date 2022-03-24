@@ -29,7 +29,7 @@ public class Main {
         Product selectedProduct = vmController.askUserForProductInput();
         try{
             boolean isEnoughMoney = moneyController.calculatePriceDifference(BigDecimal.valueOf(selectedProduct.getPrice()).divide(BigDecimal.valueOf(100)));
-            if (isEnoughMoney){
+            if (isEnoughMoney) {
                 vmController.removeItemFromStock(selectedProduct);
             }
             vmController.showCurrentStock();
