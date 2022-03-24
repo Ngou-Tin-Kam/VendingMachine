@@ -1,9 +1,11 @@
 package view;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 
-public class PriceInputView {
+public class MoneyView {
     public void printPriceInput() {
         System.out.println("---Insert your money in pennies---");
     }
@@ -23,5 +25,14 @@ public class PriceInputView {
 
     public void printInvalidChoiceToReturnMoney(BigDecimal insertedMoney) {
         System.out.printf("You get £%s back %n", insertedMoney.setScale(2, RoundingMode.UNNECESSARY));
+    }
+
+    public void printChangeListMessage(ArrayList<BigInteger> coinList) {
+        System.out.println("You get " + coinList.get(0) + " £2 coin");
+        System.out.println("You get " + coinList.get(1) + " £1 coin");
+        System.out.println("You get " + coinList.get(2) + " 50p coin");
+        System.out.println("You get " + coinList.get(3) + " 20p coin");
+        System.out.println("You get " + coinList.get(4) + " 10p coin");
+        System.out.println("You get " + coinList.get(5) + " 1p coin");
     }
 }

@@ -2,7 +2,7 @@ import controller.MoneyController;
 import controller.VendingMachineController;
 import model.Money;
 import model.Product;
-import view.PriceInputView;
+import view.MoneyView;
 import view.VendingMachineView;
 
 import java.math.BigDecimal;
@@ -16,14 +16,14 @@ public class Main {
         VendingMachineController vmController = new VendingMachineController(productModel, vmView);
 
         Money moneyModel = new Money();
-        PriceInputView priceInputView = new PriceInputView();
-        MoneyController moneyController = new MoneyController(moneyModel, priceInputView);
+        MoneyView moneyView = new MoneyView();
+        MoneyController moneyController = new MoneyController(moneyModel, moneyView);
 
         vmController.showMainMenuAndCurrentStock();
         moneyController.askUserForMoneyInput();
 
-        Product selectedProduct = vmController.askUserForProductInput();
-        try{
+        try {
+            Product selectedProduct = vmController.askUserForProductInput();
             boolean isEnoughMoney = moneyController.calculatePriceDifference(
                     BigDecimal.valueOf(selectedProduct.getPrice()).divide(BigDecimal.valueOf(100)));
             boolean isInStock = vmController.isInStock(selectedProduct);
@@ -46,7 +46,7 @@ public class Main {
         }
     }
 
-    private static Product getProductFromFile(){
+    private static Product getProductFromFile() {
         Product product = new Product();
         product.readProductFromFile();
         return product;

@@ -1,15 +1,17 @@
 package controller;
 
 import model.Money;
-import view.PriceInputView;
+import view.MoneyView;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.ArrayList;
 
 public class MoneyController {
     private Money model;
-    private PriceInputView view;
+    private MoneyView view;
 
-    public MoneyController(Money model, PriceInputView view) {
+    public MoneyController(Money model, MoneyView view) {
         this.model = model;
         this.view = view;
     }
@@ -22,11 +24,11 @@ public class MoneyController {
         this.model = model;
     }
 
-    public PriceInputView getView() {
+    public MoneyView getView() {
         return view;
     }
 
-    public void setView(PriceInputView view) {
+    public void setView(MoneyView view) {
         this.view = view;
     }
 
@@ -55,6 +57,8 @@ public class MoneyController {
         BigDecimal selectedProductPrice = model.getSelectedProductPrice();
         model.setChange(insertedMoney.subtract(selectedProductPrice));
         view.printChange(model.getChange());
+        ArrayList<BigInteger> coinList = model.workOutCoinChange(model.getChange());
+        view.printChangeListMessage(coinList);
     }
 
     public void returnMoneyAndShowInsufficientFunds() {
@@ -63,9 +67,13 @@ public class MoneyController {
         model.setChange(insertedMoney);
         model.setInsufficientFunds(selectedProductPrice.subtract(insertedMoney));
         view.printInsufficientFunds(model.getInsufficientFunds(), model.getChange());
+        ArrayList<BigInteger> coinList = model.workOutCoinChange(model.getChange());
+        view.printChangeListMessage(coinList);
     }
 
     public void printInvalidChoiceToReturnMoney() {
         view.printInvalidChoiceToReturnMoney(model.getInsertedMoney());
+        ArrayList<BigInteger> coinList = model.workOutCoinChange(model.getInsertedMoney());
+        view.printChangeListMessage(coinList);
     }
 }

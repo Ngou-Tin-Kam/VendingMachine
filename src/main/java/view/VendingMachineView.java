@@ -9,11 +9,13 @@ public class VendingMachineView {
     }
 
     public void printCurrentStock(int id, String name, BigDecimal price, int stock) {
-        System.out.printf("id: %d Name: %s Price: £%s Stock: %d %n",id, name, price.setScale(2, RoundingMode.UNNECESSARY), stock);
+        System.out.printf("id: %d Name: %s Price: £%s Stock: %d %n",
+                id, name, price.setScale(2, RoundingMode.UNNECESSARY), stock);
     }
 
     public void printIdToPurchaseMessage() {
-        System.out.println("Enter the ID of item you would like to purchase or enter any other number to exit and get your money back");
+        System.out.println("Enter the ID of item you would like to purchase " +
+                "or enter any other number to exit and get your money back");
     }
 
     public void printYouHaveSelectedMessage(String name) {
