@@ -31,8 +31,9 @@ public class VendingMachineController {
         this.view = view;
     }
 
-    public void showMainMenu() {
+    public void showMainMenuAndCurrentStock() {
         view.printMainMenu();
+        showCurrentStock();
     }
 
     public void showCurrentStock() {
@@ -70,16 +71,25 @@ public class VendingMachineController {
         return selectedProduct;
     }
 
-    public void removeItemFromStock(Product selectedProduct) {
+    public void reduceSelectedStock(Product selectedProduct) {
         int currentStock = selectedProduct.getStock();
-        if (currentStock != 0) {
-            selectedProduct.setStock(currentStock - 1);
-            model.updateTextFile();
+        selectedProduct.setStock(currentStock - 1);
+        updateTextFile();
+    }
+
+    private void updateTextFile() {
+        model.updateTextFile();
+    }
+
+    public boolean isInStock(Product selectedProduct) {
+        int currentStock = selectedProduct.getStock();
+        boolean inStock;
+        if (currentStock > 0) {
+            inStock = true;
         } else {
-            selectedProduct.setStock(currentStock);
-            printOutOfStockChoice();
-            model.updateTextFile();
+            inStock = false;
         }
+        return inStock;
     }
 
     public void printExitChoice() {
@@ -88,8 +98,8 @@ public class VendingMachineController {
 
     public void printOutOfStockChoice() {
         view.printOutOfStockChoiceMessage();
+        updateTextFile();
     }
-
 }
 
 

@@ -48,13 +48,6 @@ public class Money {
     }
 
     public boolean calculateEnoughMoney(){
-        boolean isEnoughMoney = insertedMoney.compareTo(selectedProductPrice) >= 0;
-        if (isEnoughMoney) {
-            setChange(insertedMoney.subtract(selectedProductPrice));
-        } else {
-            setChange(insertedMoney);
-            setInsufficientFunds(selectedProductPrice.subtract(insertedMoney));
-        }
-        return isEnoughMoney;
+        return insertedMoney.compareTo(selectedProductPrice) >= 0;
     }
 }

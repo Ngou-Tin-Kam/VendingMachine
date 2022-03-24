@@ -19,18 +19,25 @@ public class Main {
         PriceInputView priceInputView = new PriceInputView();
         MoneyController moneyController = new MoneyController(moneyModel, priceInputView);
 
-        vmController.showMainMenu();
-        vmController.showCurrentStock();
-
-        moneyController.showPriceInput();
+        vmController.showMainMenuAndCurrentStock();
         moneyController.askUserForMoneyInput();
-        moneyController.displayUserMoneyInput();
 
         Product selectedProduct = vmController.askUserForProductInput();
         try{
-            boolean isEnoughMoney = moneyController.calculatePriceDifference(BigDecimal.valueOf(selectedProduct.getPrice()).divide(BigDecimal.valueOf(100)));
-            if (isEnoughMoney) {
-                vmController.removeItemFromStock(selectedProduct);
+            boolean isEnoughMoney = moneyController.calculatePriceDifference(
+                    BigDecimal.valueOf(selectedProduct.getPrice()).divide(BigDecimal.valueOf(100)));
+            boolean isInStock = vmController.isInStock(selectedProduct);
+
+            if (isInStock) {
+                if (isEnoughMoney) {
+                    moneyController.subtractMoneyFromProductPrice();
+                    vmController.reduceSelectedStock(selectedProduct);
+                } else {
+                    moneyController.returnMoneyAndShowInsufficientFunds();
+                }
+            } else {
+                moneyController.printInvalidChoiceToReturnMoney();
+                vmController.printOutOfStockChoice();
             }
             vmController.showCurrentStock();
         } catch (NullPointerException e) {

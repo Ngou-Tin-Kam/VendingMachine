@@ -30,31 +30,42 @@ public class MoneyController {
         this.view = view;
     }
 
-    public void showPriceInput(){
+    public void showPriceInput() {
         view.printPriceInput();
     }
 
     public void askUserForMoneyInput() {
+        view.printPriceInput();
         model.userInputMoney();
+        displayUserMoneyInput();
     }
 
-    public void displayUserMoneyInput() {
+    private void displayUserMoneyInput() {
         BigDecimal moneyInput = model.getInsertedMoney();
         view.printMoneyInput(moneyInput);
     }
 
-    public boolean calculatePriceDifference(BigDecimal selectedProductPrice){
+    public boolean calculatePriceDifference(BigDecimal selectedProductPrice) {
         model.setSelectedProductPrice(selectedProductPrice);
-        boolean isEnoughMoney = model.calculateEnoughMoney();
-        if (isEnoughMoney) {
-            view.printChange(model.getChange());
-        } else {
-            view.printInsufficientFunds(model.getInsufficientFunds(), model.getChange());
-        }
-        return isEnoughMoney;
+        return model.calculateEnoughMoney();
     }
 
-    public void printInvalidChoiceToReturnMoney(){
+    public void subtractMoneyFromProductPrice() {
+        BigDecimal insertedMoney = model.getInsertedMoney();
+        BigDecimal selectedProductPrice = model.getSelectedProductPrice();
+        model.setChange(insertedMoney.subtract(selectedProductPrice));
+        view.printChange(model.getChange());
+    }
+
+    public void returnMoneyAndShowInsufficientFunds() {
+        BigDecimal insertedMoney = model.getInsertedMoney();
+        BigDecimal selectedProductPrice = model.getSelectedProductPrice();
+        model.setChange(insertedMoney);
+        model.setInsufficientFunds(selectedProductPrice.subtract(insertedMoney));
+        view.printInsufficientFunds(model.getInsufficientFunds(), model.getChange());
+    }
+
+    public void printInvalidChoiceToReturnMoney() {
         view.printInvalidChoiceToReturnMoney(model.getInsertedMoney());
     }
 }
