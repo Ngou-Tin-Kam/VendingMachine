@@ -10,11 +10,13 @@ public class MoneyTest {
     Money money;
     Audit audit = new Audit();
 
+    // Before each test, create a new instance of money
     @BeforeEach
     void setUp() {
         money = new Money(audit);
     }
-    
+
+    // One Unit Test to verify when calling userInputMoney with 1000 pennies is setting the insertedMoney to 10 pounds
     @Test
     void testUserInputMoneyAddedToInsertedMoney() {
         money.userInputMoney(1000);
