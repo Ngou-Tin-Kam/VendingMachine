@@ -70,6 +70,7 @@ public class Product {
         AllProducts.add(product);
     }
 
+    // File reader to read the Items.text file and reading each line
     public void readProductFromFile() {
         File name = new File("Items.txt");
         FileReader fReader;
@@ -97,6 +98,7 @@ public class Product {
         audit.logAction("File loaded");
     }
 
+    // Method to return a boolean by checking the user inserted id is valid and set the userSelectedProduct
     public boolean productToPurchase() {
         Scanner productToPurchaseSc = new Scanner(System.in);
         int userSelectedId = productToPurchaseSc.nextInt();

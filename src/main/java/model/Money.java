@@ -49,27 +49,32 @@ public class Money {
         this.insufficientFunds = insufficientFunds;
     }
 
+    // Method to include scanner for user input for money
     public int askUserInputMoney() {
         Scanner userInsertedMoneySc = new Scanner(System.in);
         return userInsertedMoneySc.nextInt();
     }
 
+    // Method to take in userInputMoney in pennies which is converted into BigDecimal and doing calculations with it to convert it into pounds
     public void userInputMoney(int userInsertedMoney) {
-        BigDecimal insertedMoneyInBigDecimal = BigDecimal.valueOf(userInsertedMoney).divide(BigDecimal.valueOf(100));
+        BigDecimal insertedMoneyInBigDecimal = BigDecimal.valueOf(userInsertedMoney).divide(BigDecimal.valueOf(100)); // Convert pennies into pound and store it into insertedMoneyInBigDecimal variable
         setInsertedMoney(insertedMoneyInBigDecimal);
-        audit.logAction("User inserted money £" + insertedMoneyInBigDecimal);
+        audit.logAction("User inserted money £" + insertedMoneyInBigDecimal); // Logging the action to the auditList
     }
 
+    // Method to check if userInsertedMoney is more than the selectedProductPrice
     public boolean calculateEnoughMoney(){
         return insertedMoney.compareTo(selectedProductPrice) >= 0;
     }
 
+    // Method to work out the change given back to the user in coins
     public ArrayList<BigInteger> workOutCoinChange(BigDecimal changeToGive) {
-        ArrayList<BigInteger> coinCounterList = new ArrayList<>();
-        ArrayList<Coin> coinList = new ArrayList<>();
+        ArrayList<BigInteger> coinCounterList = new ArrayList<>(); // New ArrayList to get collection of counters per coins
+        ArrayList<Coin> coinList = new ArrayList<>(); // New ArrayList to get collection of coins
 
-        BigDecimal tempChangeToGive = changeToGive;
+        BigDecimal tempChangeToGive = changeToGive; // tempChangeToGive to allow repetitive modification, to work out the remainder of change needed
 
+        // Adding the enum coins in order highest to lowest in value
         coinList.add(Coin.TWO_POUND);
         coinList.add(Coin.ONE_POUND);
         coinList.add(Coin.FIFTY_PENNY);
@@ -77,12 +82,12 @@ public class Money {
         coinList.add(Coin.TEN_PENNY);
         coinList.add(Coin.ONE_PENNY);
 
+        // For loop to loop through each coin to find out the modula of each coin that can go into the remainder change and add the modula as the counter for that coin
         for (int i = 0; i < coinList.size(); i++) {
             if (!tempChangeToGive.equals(BigDecimal.valueOf(0))) {
-                BigDecimal y = tempChangeToGive.divide(coinList.get(i).getValue());
-                BigDecimal x = y.setScale(2, RoundingMode.DOWN);
-                BigInteger z = x.toBigInteger();
-                coinCounterList.add(z);
+                BigDecimal changeDividedByCoin = tempChangeToGive.divide(coinList.get(i).getValue());
+                BigInteger changeModula = changeDividedByCoin.setScale(2, RoundingMode.DOWN).toBigInteger();
+                coinCounterList.add(changeModula);
                 tempChangeToGive = tempChangeToGive.remainder(coinList.get(i).getValue());
             } else {
                 coinCounterList.add(BigInteger.valueOf(0));
@@ -91,6 +96,7 @@ public class Money {
         return coinCounterList;
     }
 
+    // enum of coins and their values
     public enum Coin {
         ONE_PENNY(new BigDecimal("0.01")),
         TEN_PENNY(new BigDecimal("0.10")),
