@@ -49,9 +49,12 @@ public class Money {
         this.insufficientFunds = insufficientFunds;
     }
 
-    public void userInputMoney() {
+    public int askUserInputMoney() {
         Scanner userInsertedMoneySc = new Scanner(System.in);
-        int userInsertedMoney = userInsertedMoneySc.nextInt();
+        return userInsertedMoneySc.nextInt();
+    }
+
+    public void userInputMoney(int userInsertedMoney) {
         BigDecimal insertedMoneyInBigDecimal = BigDecimal.valueOf(userInsertedMoney).divide(BigDecimal.valueOf(100));
         setInsertedMoney(insertedMoneyInBigDecimal);
         audit.logAction("User inserted money £" + insertedMoneyInBigDecimal);

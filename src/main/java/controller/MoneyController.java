@@ -38,7 +38,8 @@ public class MoneyController {
 
     public void askUserForMoneyInput() {
         view.printPriceInput();
-        model.userInputMoney();
+        int userMoneyInput = model.askUserInputMoney();
+        model.userInputMoney(userMoneyInput);
         displayUserMoneyInput();
     }
 
