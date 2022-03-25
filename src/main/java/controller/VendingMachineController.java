@@ -74,6 +74,7 @@ public class VendingMachineController {
     public void reduceSelectedStock(Product selectedProduct) {
         int currentStock = selectedProduct.getStock();
         selectedProduct.setStock(currentStock - 1);
+        model.logItemPurchase();
         updateTextFile();
     }
 

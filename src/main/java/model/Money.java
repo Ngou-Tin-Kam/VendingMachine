@@ -11,6 +11,11 @@ public class Money {
     private BigDecimal selectedProductPrice;
     private BigDecimal change;
     private BigDecimal insufficientFunds;
+    private Audit audit;
+
+    public Money(Audit audit) {
+        this.audit = audit;
+    }
 
     public BigDecimal getInsertedMoney() {
         return insertedMoney;
@@ -47,7 +52,9 @@ public class Money {
     public void userInputMoney() {
         Scanner userInsertedMoneySc = new Scanner(System.in);
         int userInsertedMoney = userInsertedMoneySc.nextInt();
-        setInsertedMoney(BigDecimal.valueOf(userInsertedMoney).divide(BigDecimal.valueOf(100)));
+        BigDecimal insertedMoneyInBigDecimal = BigDecimal.valueOf(userInsertedMoney).divide(BigDecimal.valueOf(100));
+        setInsertedMoney(insertedMoneyInBigDecimal);
+        audit.logAction("User inserted money £" + insertedMoneyInBigDecimal);
     }
 
     public boolean calculateEnoughMoney(){

@@ -11,6 +11,11 @@ public class Product {
     private int stock;
     private static ArrayList<Product> AllProducts = new ArrayList();
     private Product userSelectedProduct;
+    private Audit audit;
+
+    public Product(Audit audit) {
+        this.audit = audit;
+    }
 
     public int getId() {
         return id;
@@ -57,7 +62,7 @@ public class Product {
     }
 
     private void setProducts(int id, String name, int price, int stock){
-        Product product = new Product();
+        Product product = new Product(audit);
         product.setId(id);
         product.setName(name);
         product.setPrice(price);
@@ -76,13 +81,11 @@ public class Product {
             String lineCurrentlyReading = line.readLine();
             while (lineCurrentlyReading != null) {
 
-                // Marshalling
                 linePerLine = lineCurrentlyReading.split(",");
                 int tempId = Integer.parseInt(linePerLine[0]);
                 String tempName = linePerLine[1];
                 int tempPrice = Integer.parseInt(linePerLine[2]);
                 int tempStock = Integer.parseInt(linePerLine[3]);
-
 
                 setProducts(tempId, tempName, tempPrice, tempStock);
 
@@ -91,6 +94,7 @@ public class Product {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        audit.logAction("File loaded");
     }
 
     public boolean productToPurchase() {
@@ -103,6 +107,7 @@ public class Product {
             if (userSelectedId == AllProducts.get(i).getId()){
                 setUserSelectedProduct(AllProducts.get(i));
                 selectedValidId = true;
+                audit.logAction("User Selected: " + AllProducts.get(i).getName());
             }
         }
         return selectedValidId;
@@ -123,5 +128,9 @@ public class Product {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void logItemPurchase() {
+        audit.logAction("Item purchased");
     }
 }

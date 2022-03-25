@@ -1,0 +1,5 @@
+25/03/2022 11:21:32: File loaded
+25/03/2022 11:21:35: User inserted money £10
+25/03/2022 11:21:37: User Selected: Mars
+25/03/2022 11:21:37: Item purchased
+25/03/2022 11:21:37: File saved
